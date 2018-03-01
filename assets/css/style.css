@@ -1,0 +1,77 @@
+body {
+    background-image: url("https://images-na.ssl-images-amazon.com/images/I/91zqbri8+0L._RI_.jpg");
+    /* ("http://www.tokkoro.com/picsup/2609679-mr-robot-computer-wallpaper-download.jpg"); */
+
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.jumbotron {
+    background-image: url("https://pre00.deviantart.net/e3d9/th/pre/i/2015/241/4/6/mr__robot_wallpaper_4k_by_valencygraphics-d97of56.jpg");
+    color: rgb(253, 253, 253);
+    background-size: cover;
+    background-position: right;
+}
+
+#countDown {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.block {
+    display: block;    
+}
+
+#sidebar {
+    position: fixed;
+}
+#timerContainer {
+    
+    padding: 20px;
+    display: block;
+    max-width: 300px;
+    position: fixed;
+}
+
+#messageBox { 
+    position: sticky;
+    top: 20px;
+    background: rgb(241, 151, 151);
+    height: 60px;
+    line-height: 50px;
+    z-index: 999;
+
+} 
+
+.question {
+    font-weight: bold;
+
+}
+
+#questionsColumn {  
+background:rgba(255, 255, 255, 0.9);
+padding: 30px;
+}
+
+#timerContainer {
+background:rgba(255, 255, 255, 0.9);
+}
+
+#buttonContainer {
+    text-align: center;
+
+}
+
+button {
+    display: block;
+}
+
+#contentWrap {
+    margin-bottom: 50px;
+}
+
+.block {
+    background-color: rgba(240, 162, 162, 0.5);
+}
