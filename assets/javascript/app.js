@@ -96,44 +96,40 @@ $(document).ready(function() {
     
     //create an array and populate with the user selected answers when the user clicks 'Submit' button 
     var selAnswerArr;
-    var placeHolder = 1;
-    $('#section1').css("display", "block")
-    $('#question1').text(triviaContent.questions[0].question); 
+    var placeHolder = 0;
+    $('#section0').css("display", "block")
+    $('#question0').text(triviaContent.questions[placeHolder].question); 
 
 
 
     $('#submitButton').click(function() {
-        for (var i=0; i<answersArray.length; i++) {
+        console.log(selAnswerArr);
         //push the selected answer into the selAnswerArr
-        selAnswerArr = $('input[name=answer'+[i+1]+']:checked').val();
+        selAnswerArr = $('input[name=answer]:checked').val();
         
     
         console.log(selAnswerArr);
-            if (selAnswerArr === "") {
+            if (selAnswerArr === undefined) {
                 $('#messageBox').text("Please answer question before submitting.");
                 selAnswerArr = [];
                 console.log(selAnswerArr);
                 return;
                 
-            } else if (selAnswerArr === answersArray[i]) {
+            } else if (selAnswerArr === answersArray[placeHolder]) {
                     correctScore++;
                     $('#correctScore').text(correctScore);
 
-                    $('#section'+placeHolder).css("display", "hidden");
-                    $('#section'+(placeHolder+1)).css("display", "block");
-                    placeHolder++;
-                    console.log(placeHolder);
-                    $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+                    positionTracker();
                     
                     
-
-
-
             } else {
                     wrongScore++;
                     $('#wrongScore').text(wrongScore);
+
+                    positionTracker();
+
             }
-        };
+        
         
         // if (selAnswerArr === answersArray.length) {
         //     clearInterval(interval);
@@ -147,7 +143,14 @@ $(document).ready(function() {
     });
         
             //compare the selected answer array to the answers array by index; increment correctScore if match, wrongScore if no match.
-            
+    function positionTracker() {
+        $('#section'+placeHolder).css("display", "none");
+                    
+                    placeHolder++;
+                    console.log(placeHolder);
+                    $('#section'+placeHolder).css("display", "block");
+                    $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+    };       
     
     
     
