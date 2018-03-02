@@ -5,51 +5,53 @@ $(document).ready(function() {
     var interval;
     var countDown = 15;
     var triviaContent = {
-        one: {
+        questions: [{
            question : "What does the \'E'\ stand for in E-Corp?",
            answer: "evil" 
         },
-        two: {
+            {
             question : "In what city was the series filmed?",
             answer : "New York"
         },
-        three: {
+            {
             question : "What group is Fsociety based on?",
             answer : "Anonymous"
         },
-        four: {
+            {
             question : "What OS does Elliot primarily use?",
             answer : "Kali Linux"
         },
-        five: {
+            {
             question : "What is Elliot's fish's name?",
             answer : "Qwerty"
         },
-        six: {
+            {
             question: "Who implemented the hack that Elliot found on Allsafe's servers in Season 1?",
             answer : "Elliot"
         },
-        seven: {
+            {
             question: "What did the five/nine hack actually do?",
             answer : "Erased everyone's financial debt"
         },
-        eight: {
+            {
             question: "Who helped Fsociety hack the FBI?",
             answer : "Angela"
         },
-        nine: {
+            {
             question: "How does Elliot first greet viewers?",
             answer : "Hello, friend"
         },
-        ten: {
+            {
             question: "What was the name of the toxic dump cover up by E-Corp?",
             answer : "Washington Township Scandal"
         },
-        eleven: {
+            {
             question: "What is the name of the leader of the Chinese hacker group, the Dark Army",
             answer : "White rose"
         }
-    }
+    
+    ]};
+    
     // how to push objects within objects into an array
     // for (var i=0; i<triviaContent.length;i++) {
     //     answersArray = answersArray.push(triviaContent.)
@@ -68,20 +70,13 @@ $(document).ready(function() {
         "b"
     
     ]
-    //how to simplify this code; loop?
-    $('#question1').text(triviaContent.one.question);
-    $('#question2').text(triviaContent.two.question);
-    $('#question3').text(triviaContent.three.question);
-    $('#question4').text(triviaContent.four.question);
-    $('#question5').text(triviaContent.five.question);
-    $('#question6').text(triviaContent.six.question);
-    $('#question7').text(triviaContent.seven.question);
-    $('#question8').text(triviaContent.eight.question);
-    $('#question9').text(triviaContent.nine.question);
-    $('#question10').text(triviaContent.ten.question);
-    $('#question11').text(triviaContent.eleven.question);
-    
-    
+    console.log(triviaContent.questions[0].question);
+    var questionsArray = [];
+    //for loop to build the array with all questions
+    for (var i=0; i<triviaContent.questions.length; i++) {
+        
+        questionsArray.push(triviaContent.questions[i].question)
+    };
     
     //.text to show the first count of counter before counting down
     $('#countDown').text(countDown);
@@ -100,40 +95,61 @@ $(document).ready(function() {
     }
     
     //create an array and populate with the user selected answers when the user clicks 'Submit' button 
-    var selAnswerArr = [];
+    var selAnswerArr;
+    var placeHolder = 1;
+    $('#section1').css("display", "block")
+    $('#question1').text(triviaContent.questions[0].question); 
+
+
+
     $('#submitButton').click(function() {
-    
-    //push the selected answer into the selAnswerArr
-    $('input[name=answer]:checked').each(function(){
-        selAnswerArr.push($(this).val());
-    });
-    console.log(selAnswerArr);
-    });
-    
-        //compare the selected answer array to the answers array by index; increment correctScore if match, wrongScore if no match.
         for (var i=0; i<answersArray.length; i++) {
-        if (selAnswerArr.length != answersArray.length) {
-            $('#messageBox').text("Please answer question before submitting.");
-            selAnswerArr = [];
-            console.log(selAnswerArr);
-            return;
-            
-        } else if (selAnswerArr[i] === answersArray[i]) {
-                correctScore++;
-                $('#correctScore').text(correctScore);
-        } else {
-                wrongScore++;
-                $('#wrongScore').text(wrongScore);
-        }
-    };
+        //push the selected answer into the selAnswerArr
+        selAnswerArr = $('input[name=answer'+[i+1]+']:checked').val();
+        
     
-    if (selAnswerArr.length === answersArray.length) {
-        clearInterval(interval);
-        disableSubmitButton();
-        $('#messageBox').text("Check out your results!");
-    }
+        console.log(selAnswerArr);
+            if (selAnswerArr === "") {
+                $('#messageBox').text("Please answer question before submitting.");
+                selAnswerArr = [];
+                console.log(selAnswerArr);
+                return;
+                
+            } else if (selAnswerArr === answersArray[i]) {
+                    correctScore++;
+                    $('#correctScore').text(correctScore);
+
+                    $('#section'+placeHolder).css("display", "hidden");
+                    $('#section'+(placeHolder+1)).css("display", "block");
+                    placeHolder++;
+                    console.log(placeHolder);
+                    $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+                    
+                    
+
+
+
+            } else {
+                    wrongScore++;
+                    $('#wrongScore').text(wrongScore);
+            }
+        };
+        
+        // if (selAnswerArr === answersArray.length) {
+        //     clearInterval(interval);
+        //     disableSubmitButton();
+        //     $('#messageBox').text("Check out your results!");
+        // }
+
+
+
     
     });
+        
+            //compare the selected answer array to the answers array by index; increment correctScore if match, wrongScore if no match.
+            
+    
+    
     
     //reveal number of questions player answers correctly and incorrectly 
     
@@ -145,10 +161,11 @@ $(document).ready(function() {
     
     function disableSubmitButton() {
         $('#submitButton').prop("disabled", true);
-    }
+    };
     
     function enableSubmitButton() {
         $('#submitButton').prop("disabled", false);
-    }
+    };
     
-    });
+});
+    
