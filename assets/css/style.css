@@ -12,7 +12,7 @@ body {
     background-image: url("https://pre00.deviantart.net/e3d9/th/pre/i/2015/241/4/6/mr__robot_wallpaper_4k_by_valencygraphics-d97of56.jpg");
     color: rgb(253, 253, 253);
     background-size: cover;
-    background-position: right;
+    background-position: right;  
 }
 
 #countDown {
@@ -53,6 +53,7 @@ body {
 #questionsColumn {  
 background:rgba(255, 255, 255, 0.9);
 padding: 30px;
+height: 280px;
 }
 
 #timerContainer {
@@ -60,7 +61,7 @@ background:rgba(255, 255, 255, 0.9);
 }
 
 #buttonContainer {
-    text-align: center;
+    text-align: left;
 
 }
 
@@ -78,4 +79,29 @@ button {
 
 .qblock {
     display: none;
+    text-align:left;
 }
+
+.correctImage, .wrongImage, .outTimeImage {
+    width: 200px;
+}
+
+#correctDisplay, #incorrectDisplay {
+    width: 100%;
+}
+
+#correctAns {
+    color: rgb(212, 41, 41);
+    margin: 0 auto;
+}
+
+#correctAnsDisplay {
+    width: 100%;
+    background-color:rgb(243, 235, 235);
+}
+
+.img-thumbnail {
+    border-radius: 30px!important; 
+    
+}
+

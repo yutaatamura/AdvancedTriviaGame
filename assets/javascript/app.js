@@ -3,11 +3,11 @@ $(document).ready(function() {
     //countdown timer that counts down 
     
     var interval;
-    var countDown = 15;
+    var countDown = 30;
     var triviaContent = {
         questions: [{
            question : "What does the \'E'\ stand for in E-Corp?",
-           answer: "evil" 
+           answer: "Evil" 
         },
             {
             question : "In what city was the series filmed?",
@@ -91,6 +91,10 @@ $(document).ready(function() {
             clearInterval(interval);
             disableSubmitButton();
             $('#messageBox').text("You ran out of time!");
+            displayOutTimeImg();
+            
+            setTimeout(positionTracker, 3000)
+
         }
     }
     
@@ -118,41 +122,86 @@ $(document).ready(function() {
             } else if (selAnswerArr === answersArray[placeHolder]) {
                     correctScore++;
                     $('#correctScore').text(correctScore);
-
-                    positionTracker();
-                    
+                    displayWinImg();
+                    if (countDown < 3 ) {
+                        return;
+                    } else {
+                    setTimeout(positionTracker,1200);
+                    }
                     
             } else {
                     wrongScore++;
                     $('#wrongScore').text(wrongScore);
-
-                    positionTracker();
+                    displayWrongImg();
+                    if (countDown < 3 ) {
+                        return;
+                    } else {
+                    setTimeout(positionTracker,1500);
+                    }
 
             }
-        
+        }); 
         
         // if (selAnswerArr === answersArray.length) {
         //     clearInterval(interval);
         //     disableSubmitButton();
         //     $('#messageBox').text("Check out your results!");
         // }
+    var correctImage = "http://www.eatgeeklove.com/wp-content/uploads/2016/09/Their_official_Wallpaper-e1474492988738.jpg";
+    var wrongImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtNFdfFMfCLlgPN2ojwbq1zpck-1-psEmgGJZxNZz-r2wquzY8";
 
+    var outTimeImage = "https://pre00.deviantart.net/0bcf/th/pre/f/2015/223/d/7/e_corp_by_threebik-d958irt.jpg";
 
+    function displayWinImg() {
+        //hide current question block
+        $('#section'+placeHolder).css("display", "none");
+        //hide submit button
+        $('#submitButton').css("display", "none");
+        //show correctImage
+        $('#pictureContainer').html("<h3 id=\"correctDisplay\" class=\"correctImage text-center\">Correct!</h3><img class=\"correctImage img-thumbnail img-responsive\" src=" + correctImage + ">");
+        //erase correctImage after 1.2s
+        setTimeout(eraseWinImg, 1200) 
+    }    
 
+    function displayWrongImg() {
+        $('#section'+placeHolder).css("display", "none");
+        $('#submitButton').css("display", "none");
+
+        $('#pictureContainer').html("<h3 id=\"incorrectDisplay\" class=\"wrongImage text-center\">Incorrect!</h3><img class=\"wrongImage img-thumbnail img-responsive\" src=" + wrongImage + "><h6 id=\"correctAnsDisplay\" class=\"wrongImage\">Correct answer: <span id=\"correctAns\"></span></h6>");
+
+        $('#correctAns').text(triviaContent.questions[placeHolder].answer);
+        setTimeout(eraseWrongImg, 1500)
+    }
+
+    function displayOutTimeImg() {
+        $('#section'+placeHolder).css("display", "none");
+        $('#submitButton').css("display", "none");
+
+        $('#pictureContainer').html("<h3 class=\"outTimeImage text-center\">You're out of time!</h3><img class=\"outTimeImage img-thumbnail img-responsive\" src=" + outTimeImage + ">");
+        setTimeout(eraseOutTimeImg, 3000)
+    }
+
+    function eraseWinImg() {
+        $('.correctImage').remove();
+    }
+
+    function eraseWrongImg() {
+        $('.wrongImage').remove();
+    }
+
+    function eraseOutTimeImg() {
+        $('.outTimeImage').remove();
+    }
     
-    });
-        
             //compare the selected answer array to the answers array by index; increment correctScore if match, wrongScore if no match.
     function positionTracker() {
-        $('#section'+placeHolder).css("display", "none");
                     
-                    placeHolder++;
-                    
-                    $('#section'+placeHolder).css("display", "block");
-                    $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+        placeHolder++;
+        
+        $('#section'+placeHolder).css("display", "block");
+        $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+        $('#submitButton').css("display", "block");
     };       
-    
-    
     
     //reveal number of questions player answers correctly and incorrectly 
     
