@@ -46,7 +46,7 @@ $(document).ready(function() {
             answer : "Washington Township Scandal"
         },
             {
-            question: "What is the name of the leader of the Chinese hacker group, the Dark Army",
+            question: "What is the name of the leader of the Chinese hacker group, the Dark Army?",
             answer : "White rose"
         }
     
@@ -147,7 +147,7 @@ $(document).ready(function() {
         $('#section'+placeHolder).css("display", "none");
                     
                     placeHolder++;
-                    console.log(placeHolder);
+                    
                     $('#section'+placeHolder).css("display", "block");
                     $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
     };       
