@@ -86,6 +86,7 @@ $(document).ready(function() {
     countDown = 60;
     //.text to show the first count of counter before counting down
     $('#countDown').text(countDown);
+    clearInterval(interval);
     interval = setInterval(count, 1000);
     }
     
@@ -226,10 +227,11 @@ $(document).ready(function() {
             $('#correctVal').text(correctScore);
             $('#wrongVal').text(wrongScore);
             restart();
-        }
+        } else {
         $('#section'+placeHolder).css("display", "block");
         $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
         $('#submitButton').css("display", "block");
+        };
     };    
     
     
