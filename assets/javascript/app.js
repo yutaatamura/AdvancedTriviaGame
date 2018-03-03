@@ -79,6 +79,8 @@ $(document).ready(function() {
     };
     
     startClock();
+    
+
 
     function startClock() {
     countDown = 60;
@@ -128,6 +130,7 @@ $(document).ready(function() {
                     correctScore++;
                     $('#correctScore').text(correctScore);
                     displayWinImg();
+                    selAnswer = "";
                     if (countDown < 3 ) {
                         return;
                     } else {
@@ -138,6 +141,7 @@ $(document).ready(function() {
                     wrongScore++;
                     $('#wrongScore').text(wrongScore);
                     displayWrongImg();
+                    selAnswer = "";
                     if (countDown < 3 ) {
                         return;
                     } else {
@@ -214,14 +218,22 @@ $(document).ready(function() {
     function displayNextQuestion() {
                     
         placeHolder++;
-        
+        console.log(placeHolder);
+        if (placeHolder === 11) {
+            placeHolder = 0;
+            $('#resultsPage').css("display", "block");
+            //show correct and wrong score
+            $('#correctVal').text(correctScore);
+            $('#wrongVal').text(wrongScore);
+            restart();
+        }
         $('#section'+placeHolder).css("display", "block");
         $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
         $('#submitButton').css("display", "block");
     };    
     
     
-
+    
 
     function restart() {
 //restart game
