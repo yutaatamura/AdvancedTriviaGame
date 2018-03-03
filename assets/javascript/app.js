@@ -3,7 +3,7 @@ $(document).ready(function() {
     //countdown timer that counts down 
     
     var interval;
-    var countDown = 30;
+    var countDown = 60;
     var triviaContent = {
         questions: [{
            question : "What does the \'E'\ stand for in E-Corp?",
@@ -78,9 +78,14 @@ $(document).ready(function() {
         questionsArray.push(triviaContent.questions[i].question)
     };
     
+    startClock();
+
+    function startClock() {
+    countDown = 60;
     //.text to show the first count of counter before counting down
     $('#countDown').text(countDown);
     interval = setInterval(count, 1000);
+    }
     
     function count() {
         
@@ -93,13 +98,13 @@ $(document).ready(function() {
             $('#messageBox').text("You ran out of time!");
             displayOutTimeImg();
             
-            setTimeout(positionTracker, 3000)
+            setTimeout(displayResults, 3000)
 
         }
     }
     
     //create an array and populate with the user selected answers when the user clicks 'Submit' button 
-    var selAnswerArr;
+    var selAnswer;
     var placeHolder = 0;
     $('#section0').css("display", "block")
     $('#question0').text(triviaContent.questions[placeHolder].question); 
@@ -107,26 +112,26 @@ $(document).ready(function() {
 
 
     $('#submitButton').click(function() {
-        console.log(selAnswerArr);
-        //push the selected answer into the selAnswerArr
-        selAnswerArr = $('input[name=answer]:checked').val();
+        console.log(selAnswer);
+        //push the selected answer into the selAnswer
+        selAnswer = $('input[name=answer]:checked').val();
         
     
-        console.log(selAnswerArr);
-            if (selAnswerArr === undefined) {
+        console.log(selAnswer);
+            if (selAnswer === undefined) {
                 $('#messageBox').text("Please answer question before submitting.");
-                selAnswerArr = [];
-                console.log(selAnswerArr);
+                selAnswer = "";
+                console.log(selAnswer);
                 return;
                 
-            } else if (selAnswerArr === answersArray[placeHolder]) {
+            } else if (selAnswer === answersArray[placeHolder]) {
                     correctScore++;
                     $('#correctScore').text(correctScore);
                     displayWinImg();
                     if (countDown < 3 ) {
                         return;
                     } else {
-                    setTimeout(positionTracker,1200);
+                    setTimeout(displayNextQuestion,1200);
                     }
                     
             } else {
@@ -136,7 +141,7 @@ $(document).ready(function() {
                     if (countDown < 3 ) {
                         return;
                     } else {
-                    setTimeout(positionTracker,1500);
+                    setTimeout(displayNextQuestion,1500);
                     }
 
             }
@@ -177,8 +182,20 @@ $(document).ready(function() {
         $('#section'+placeHolder).css("display", "none");
         $('#submitButton').css("display", "none");
 
-        $('#pictureContainer').html("<h3 class=\"outTimeImage text-center\">You're out of time!</h3><img class=\"outTimeImage img-thumbnail img-responsive\" src=" + outTimeImage + ">");
+        $('#pictureContainer').html("<h3 id=\"outTimeDisplay\" class=\"outTimeImage text-center\">You're out of time!</h3><img class=\"outTimeImage img-thumbnail img-responsive\" src=" + outTimeImage + ">");
         setTimeout(eraseOutTimeImg, 3000)
+    }
+
+    function displayResults() {
+        //when count=0 or when all questions answered placeholder=13;
+        //hide existing section and show results section
+        $('#section'+placeHolder).css("display", "none");
+        $('#submitButton').css("display", "none");
+        $('#resultsPage').css("display", "block");
+        //show correct and wrong score
+        $('#correctVal').text(correctScore);
+        $('#wrongVal').text(wrongScore);
+        restart();
     }
 
     function eraseWinImg() {
@@ -194,14 +211,34 @@ $(document).ready(function() {
     }
     
             //compare the selected answer array to the answers array by index; increment correctScore if match, wrongScore if no match.
-    function positionTracker() {
+    function displayNextQuestion() {
                     
         placeHolder++;
         
         $('#section'+placeHolder).css("display", "block");
         $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
         $('#submitButton').css("display", "block");
-    };       
+    };    
+    
+    
+
+
+    function restart() {
+//restart game
+        $('#restartButton').click(function() {
+            placeHolder = 0;
+            $('#resultsPage').css("display", "none");
+            $('#section'+placeHolder).css("display", "block");
+            $('#question'+placeHolder).text(triviaContent.questions[placeHolder].question);
+            $('#submitButton').css("display", "block");
+            enableSubmitButton();
+            correctScore = 0;
+            wrongScore = 0;
+            $('#correctScore').text(correctScore);
+            $('#wrongScore').text(wrongScore);
+            startClock();
+        })
+    }
     
     //reveal number of questions player answers correctly and incorrectly 
     

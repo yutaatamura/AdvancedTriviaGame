@@ -86,7 +86,7 @@ button {
     width: 200px;
 }
 
-#correctDisplay, #incorrectDisplay {
+#correctDisplay, #incorrectDisplay, #outTimeDisplay {
     width: 100%;
 }
 
@@ -104,4 +104,20 @@ button {
     border-radius: 30px!important; 
     
 }
+
+#correctVal {
+    color: rgb(47, 231, 47);
+    font-weight: bold;
+}
+
+#wrongVal {
+    color: rgb(212, 41, 41);
+    font-weight: bold;
+}
+
+#resultsPage {
+    text-align: center;
+}
+
+
 
