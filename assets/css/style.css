@@ -62,7 +62,6 @@ background:rgba(255, 255, 255, 0.9);
 
 #buttonContainer {
     text-align: left;
-
 }
 
 button {
@@ -108,6 +107,16 @@ button {
 #correctVal {
     color: rgb(47, 231, 47);
     font-weight: bold;
+}
+
+#correctScore {
+    color: rgb(47, 231, 47);
+    font-weight: bold;
+}
+
+#wrongScore {
+        color: rgb(212, 41, 41);
+        font-weight: bold;
 }
 
 #wrongVal {

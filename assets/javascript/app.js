@@ -158,6 +158,7 @@ $(document).ready(function() {
         //     $('#messageBox').text("Check out your results!");
         // }
     var correctImage = "http://www.eatgeeklove.com/wp-content/uploads/2016/09/Their_official_Wallpaper-e1474492988738.jpg";
+    
     var wrongImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtNFdfFMfCLlgPN2ojwbq1zpck-1-psEmgGJZxNZz-r2wquzY8";
 
     var outTimeImage = "https://pre00.deviantart.net/0bcf/th/pre/f/2015/223/d/7/e_corp_by_threebik-d958irt.jpg";
@@ -222,6 +223,7 @@ $(document).ready(function() {
         console.log(placeHolder);
         if (placeHolder === 11) {
             placeHolder = 0;
+            clearInterval(interval);
             $('#resultsPage').css("display", "block");
             //show correct and wrong score
             $('#correctVal').text(correctScore);
@@ -234,9 +236,6 @@ $(document).ready(function() {
         };
     };    
     
-    
-    
-
     function restart() {
 //restart game
         $('#restartButton').click(function() {
